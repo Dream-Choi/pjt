@@ -2,12 +2,12 @@ package com.example.jwt.pjt.util;
 
 import java.util.Date;
 
-import javax.crypto.SecretKey;
+
 import java.security.Key;
 
 import org.springframework.stereotype.Component;
 
-import io.jsonwebtoken.Jwt;
+
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
