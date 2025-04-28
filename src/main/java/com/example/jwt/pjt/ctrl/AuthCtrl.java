@@ -10,8 +10,9 @@ import com.example.jwt.pjt.domain.UserRequestDTO;
 import com.example.jwt.pjt.domain.UserResponseDTO;
 import com.example.jwt.pjt.service.AuthService;
 
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
+
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 
 @RestController
@@ -25,6 +26,9 @@ public class AuthCtrl {
         System.out.println("ctrl login param "+params);
         UserResponseDTO response = service.loginService(params);
         System.out.println("ctrl login response"+response);
-        return ResponseEntity.ok().body(response);
+        return ResponseEntity.ok()
+                .header("Authrization", "Bearer "+response.getAccessToken())
+                .header("Refresh-Token", response.getRefreshToken())
+                .body(response);
     }
 }
