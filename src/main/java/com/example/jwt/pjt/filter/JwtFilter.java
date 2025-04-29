@@ -1,5 +1,6 @@
 package com.example.jwt.pjt.filter;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import io.jsonwebtoken.Jwts;
@@ -9,6 +10,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.security.Key;
 
+import jakarta.annotation.PostConstruct;
 import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -17,14 +19,24 @@ import jakarta.servlet.ServletResponse;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-
+import oracle.net.aso.c;
+/*
+ 브라우저 요청방식 4가지(GET, POST, PUT, DELETE) 요청전에 자동으로 OPTION(preflight request) 요청을 먼저 보내서 필터를 통해서 
+ jwt검사를 하게되면 COSRS검증이 안됨
+ */
 @Component
 public class JwtFilter implements Filter{
-    private final Key key = Keys.hmacShaKeyFor("your-256-bit-secret-key-which-is-long-enough-to-meet-requirements".getBytes(StandardCharsets.UTF_8));
+    //private final Key key = Keys.hmacShaKeyFor("your-256-bit-secret-key-which-is-long-enough-to-meet-requirements".getBytes(StandardCharsets.UTF_8));
     // Implement the filter logic here
     // For example, you can override the doFilter method to process JWT tokens
     // and validate requests.
-    
+    @Value("${jwt.secret}")
+    private String secret;
+    private Key key=null;
+    @PostConstruct
+    private void init() { 
+        this.key = Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
+    }
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         // Example: Print a message to indicate the filter is working
@@ -34,6 +46,16 @@ public class JwtFilter implements Filter{
         HttpServletResponse res = (HttpServletResponse) response;
         String path = req.getRequestURI();
         System.out.println("Request Path: " + path);
+        String method = req.getMethod();
+        System.out.println("Request Method: " + method);
+        if("OPTIONS".equalsIgnoreCase(method)) {
+            res.setStatus(HttpServletResponse.SC_OK);
+            //res.setHeader("Access-Control-Allow-Origin", "http://127.0.0.1:3000");
+            //res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+            //res.setHeader("Access-Control-Allow-Headers", "Authorization, Content-Type");
+            chain.doFilter(request, response);
+            return;
+        }
         if(isPassPath(path)) {
             System.out.println("인증 필요없는 경로는 JWT 검증 제외");
             chain.doFilter(request, response);
