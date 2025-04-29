@@ -22,7 +22,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import oracle.net.aso.c;
 /*
  브라우저 요청방식 4가지(GET, POST, PUT, DELETE) 요청전에 자동으로 OPTION(preflight request) 요청을 먼저 보내서 필터를 통해서 
- jwt검사를 하게되면 COSRS검증이 안됨
+ jwt검사를 하게되면 CORS검증이 안됨
  */
 @Component
 public class JwtFilter implements Filter{
