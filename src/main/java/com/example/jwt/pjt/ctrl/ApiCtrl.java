@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class ApiCtrl {
     @GetMapping("/hello")
     public String hello(){
+        System.out.println("ApiCtrl hello");
         return "hello, Siat";
     }
 }

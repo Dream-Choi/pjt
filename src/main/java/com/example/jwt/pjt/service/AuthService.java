@@ -25,7 +25,10 @@ public class AuthService {
                                 .refreshToken(refToken)
                                 .build();
         repository.save(entity);
-        UserResponseDTO response= UserResponseDTO.builder().accessToken(accToken).refreshToken(refToken).build();
+        UserResponseDTO response= UserResponseDTO.builder()
+                                    .accessToken(accToken)
+                                    .refreshToken(refToken)
+                                    .build();
         return response;
     }
 }

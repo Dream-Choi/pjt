@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 
 @RestController
-@RequestMapping("/api/v1/auth")
+@RequestMapping("/auth")
 public class AuthCtrl {
     @Autowired
     private AuthService service;
@@ -27,7 +27,7 @@ public class AuthCtrl {
         UserResponseDTO response = service.loginService(params);
         System.out.println("ctrl login response"+response);
         return ResponseEntity.ok()
-                .header("Authrization", "Bearer "+response.getAccessToken())
+                .header("Authorization", "Bearer "+response.getAccessToken())
                 .header("Refresh-Token", response.getRefreshToken())
                 .body(response);
     }
