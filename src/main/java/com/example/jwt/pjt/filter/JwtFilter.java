@@ -82,12 +82,10 @@ public class JwtFilter implements Filter{
             System.out.println("토큰의 문제가 생김.");
             System.out.println("JWT 검증 실패");
             res.setStatus(HttpServletResponse.SC_FORBIDDEN);
-            res.getWriter().write("Invalid or expired JWT token");
             res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
             res.setHeader("Access-Control-Allow-Headers", "Authorization, Content-Type");
             res.setHeader("Access-Control-Allow-Credentials", "true");
             res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
-            chain.doFilter(request, response);
             return;
         }
     }
