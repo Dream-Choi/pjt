@@ -10,6 +10,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Table;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import lombok.AllArgsConstructor;
@@ -32,7 +33,10 @@ import lombok.Setter;
 @Getter
 public class PostEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    // @GeneratedValue(strategy = GenerationType.IDENTITY) // mysql, mariadb, h2 등에서 사용
+    
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "post_seq_gen")
+    @SequenceGenerator(name = "post_seq_gen", sequenceName = "post_seq", allocationSize = 1)
     private Long id;
     
     private String title;
