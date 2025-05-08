@@ -89,4 +89,14 @@ public class UserService {
         System.out.println("execute query3");
         post.get().updatePost(param);
     }
+    public void deletePostService(String email, Long postId) {
+        System.out.println("UserService.deletePost() called");
+        MemberEntity member = memberRepository.findById(email)
+                .orElseThrow(()-> new RuntimeException("User not found"));
+        Optional<PostEntity> post = member.findPost(postId);
+        if(post.isPresent()){
+            member.getPosts().remove(post.get());
+            memberRepository.save(member);
+        }
+    }
 }
