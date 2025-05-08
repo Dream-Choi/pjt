@@ -84,6 +84,7 @@ public class UserService {
                 .orElseThrow(()-> new RuntimeException("User not found"));
         System.out.println("execute query2");
         Optional<PostEntity> post = member.findPost(param.getId());
+        System.out.println("post size: " + member.getPosts().size());
         System.out.println("execute query3");
         post.get().updatePost(param);
     }
