@@ -2,6 +2,8 @@ package com.example.jwt.pjt.domain.entity;
 
 import jakarta.persistence.Id;
 
+import com.example.jwt.pjt.domain.PostRequestDTO;
+
 import jakarta.annotation.Generated;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -36,5 +38,9 @@ public class PostEntity {
     private String title;
     private String content;
     
+    public void updatePost(PostRequestDTO param) {
+        this.title = param.getTitle();
+        this.content = param.getContent();
+    }
     
 }

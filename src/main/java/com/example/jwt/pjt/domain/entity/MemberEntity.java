@@ -1,7 +1,9 @@
 package com.example.jwt.pjt.domain.entity;
 
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -41,5 +43,11 @@ public class MemberEntity {
     private List<PostEntity> posts = new ArrayList<>();
     public void addPost(PostEntity post) {
         posts.add(post);
+    }
+    public Optional<PostEntity> findPost(Long id) {
+        System.out.println("MemberEntity.findPost() called");
+        return posts.stream()
+                .filter(post -> post.getId().equals(id))
+                .findFirst();
     }
 }
