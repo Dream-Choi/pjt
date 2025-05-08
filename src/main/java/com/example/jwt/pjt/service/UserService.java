@@ -9,6 +9,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.jwt.pjt.dao.MemberRepository;
 import com.example.jwt.pjt.dao.PostRepository;
@@ -19,7 +20,7 @@ import com.example.jwt.pjt.domain.UserRequestDTO;
 import com.example.jwt.pjt.domain.entity.MemberEntity;
 import com.example.jwt.pjt.domain.entity.PostEntity;
 
-import jakarta.transaction.Transactional;
+
 
 
 
