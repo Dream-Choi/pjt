@@ -32,7 +32,7 @@ import lombok.Setter;
 @Getter
 public class PostEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
     
     private String title;

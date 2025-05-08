@@ -19,7 +19,7 @@ import lombok.Setter;
 @Entity
 public class UserEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
     private String email;
     private String passwd;
