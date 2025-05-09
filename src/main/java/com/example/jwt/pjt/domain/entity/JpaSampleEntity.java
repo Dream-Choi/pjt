@@ -8,6 +8,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
@@ -17,6 +18,7 @@ import lombok.Setter;
 @Entity
 @Table(name="siat_jpa_sample_tbl")
 @Setter
+@Getter
 @DynamicUpdate
 public class JpaSampleEntity {
     @Id

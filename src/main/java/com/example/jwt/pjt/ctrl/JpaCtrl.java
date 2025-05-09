@@ -1,12 +1,17 @@
 package com.example.jwt.pjt.ctrl;
 
+import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
+import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.jwt.pjt.dao.JpaSampleRepository;
+import com.example.jwt.pjt.domain.dto.SampleResponseDTO;
 import com.example.jwt.pjt.domain.entity.JpaSampleEntity;
 import com.example.jwt.pjt.util.JwtProvider;
 
@@ -15,6 +20,7 @@ import oracle.net.aso.j;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -79,5 +85,22 @@ public class JpaCtrl {
             param.get("name")
         );
         return null;
+    }
+    @DeleteMapping("/delete/{userId}")
+    public String delete(@PathVariable("userId") String userId) {
+        System.out.println("JpaCtrl.delete() called");
+        jpaSampleRepository.deleteById(userId);
+        return null;
+    }
+    @GetMapping("/list")
+    public ResponseEntity<List<SampleResponseDTO>> list() {
+        System.out.println("JpaCtrl.list() called");
+        // List<JpaSampleEntity> lst = jpaSampleRepository.findAll();
+        // List<SampleResponseDTO> response = lst.stream()
+        //                                         .map(SampleResponseDTO::new)
+        //                                         .toList();
+        //
+        List<SampleResponseDTO> result = jpaSampleRepository.findByAll();
+        return ResponseEntity.ok().body(result);
     }
 }
