@@ -42,7 +42,7 @@ public class JpaCtrl {
     @PostMapping("/sign-in")
     @Transactional
     public String signIn(@RequestBody Map<String, String> param) {
-        System.out.println("JpaCtrl.getMethodName() called");
+        System.out.println("JpaCtrl.signIn() called");
         String accToken =provider.generateAccToken(param.get("userId"));
         String refToken = provider.generateReToken(param.get("userId"));
         JpaSampleEntity entity=jpaSampleRepository
