@@ -17,6 +17,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+
 
 
 
@@ -51,5 +54,30 @@ public class JpaCtrl {
         entity.setRefreshToken(refToken);
         return null;
     }
-    
+    /*
+     Dirty cheking
+     엔티티의 변경사항을 자동으로 감지하여 DB에 반영하는 JPA의 기능
+     */
+    @PutMapping("/update")
+    @Transactional
+    public String update(@RequestBody Map<String, String> param) {
+        System.out.println("JpaCtrl.update() called");
+        // JpaSampleEntity entity = JpaSampleEntity.builder()
+        //                             .userId(param.get("userId"))
+        //                             .passwd(param.get("passwd"))
+        //                             .name(param.get("name"))
+        //                             .build();
+        // jpaSampleRepository.save(entity);
+        // JpaSampleEntity entity = jpaSampleRepository
+        //         .findById(param.get("userId"))
+        //         .orElseThrow(() -> new RuntimeException("not found"));
+        // entity.setPasswd(param.get("passwd"));
+        // entity.setName(param.get("name"));
+        jpaSampleRepository.updateRow(
+            param.get("userId"),
+            param.get("passwd"),
+            param.get("name")
+        );
+        return null;
+    }
 }

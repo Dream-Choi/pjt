@@ -1,5 +1,7 @@
 package com.example.jwt.pjt.domain.entity;
 
+import org.hibernate.annotations.DynamicUpdate;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -15,6 +17,7 @@ import lombok.Setter;
 @Entity
 @Table(name="siat_jpa_sample_tbl")
 @Setter
+@DynamicUpdate
 public class JpaSampleEntity {
     @Id
     @Column(name = "userId" , length = 50)
